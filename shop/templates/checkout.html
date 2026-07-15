@@ -1,1 +1,131 @@
-{% extends 'base.html' %}{% block title %}Checkout — Audio Lux{% endblock %}{% block content %}<div class="page-wrap"><h1 class="page-title">Checkout.</h1><p class="page-intro">Your order is protected with secure checkout.</p><form method="post" class="checkout-grid">{% csrf_token %}<div><section class="form-card"><h2>Delivery details</h2><div class="form-grid"><div class="field"><label for="first_name">First name</label><input id="first_name" name="first_name" required value="{{ user.first_name }}"></div><div class="field"><label for="last_name">Last name</label><input id="last_name" name="last_name" required value="{{ user.last_name }}"></div><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required value="{{ user.email }}"></div><div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" required></div><div class="field full"><label for="address">Address</label><input id="address" name="address" required></div><div class="field"><label for="city">City</label><input id="city" name="city" required></div><div class="field"><label for="postal_code">Postal code</label><input id="postal_code" name="postal_code" required></div><div class="field full"><label for="country">Country</label><input id="country" name="country" required></div></div></section><section class="form-card" style="margin-top:18px"><h2>Payment</h2><label class="payment-choice"><input type="radio" name="payment_method" value="paypal" checked> <span><b>PayPal</b><br><small>Secure payment with PayPal</small></span></label><label class="payment-choice"><input type="radio" name="payment_method" value="mastercard"> <span><b>Mastercard</b><br><small>Pay by card</small></span></label><div id="card-fields" class="form-grid" style="display:none;margin-top:15px"><div class="field full"><label for="card_number">Card number</label><input id="card_number" name="card_number" inputmode="numeric" placeholder="1234 5678 9012 3456"></div><div class="field"><label for="expiry">Expiry</label><input id="expiry" name="expiry" placeholder="MM/YY"></div><div class="field"><label for="cvv">CVV</label><input id="cvv" name="cvv" inputmode="numeric" maxlength="3"></div></div></section></div><aside class="summary-card"><h2 style="margin-top:0">Your order</h2>{% for item in cart_items %}<div class="summary-row"><span>{{ item.product.name }} × {{ item.quantity }}</span><span>${{ item.subtotal|floatformat:2 }}</span></div>{% endfor %}<div class="summary-row" style="margin-top:12px;border-top:1px solid var(--line)"><span>Delivery</span><span style="color:var(--lime)">Free</span></div><div class="summary-row"><span>Tax</span><span>${{ tax|floatformat:2 }}</span></div><div class="summary-row summary-total"><span>Total</span><span>${{ total|floatformat:2 }}</span></div><button class="btn btn-primary" type="submit">Place order <i class="fa-solid fa-lock"></i></button></aside></form></div>{% endblock %}{% block extra_js %}<script>document.querySelectorAll('[name="payment_method"]').forEach(e=>e.addEventListener('change',()=>document.getElementById('card-fields').style.display=document.querySelector('[name="payment_method"]:checked').value==='mastercard'?'grid':'none'));</script>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Checkout — Audio Lux{% endblock %}
+{% block content %}
+  <div class="page-wrap">
+    <h1 class="page-title">Checkout.</h1>
+    <p class="page-intro">Your order is protected with secure checkout.</p>
+
+    <form method="post" class="checkout-grid">
+      {% csrf_token %}
+
+      <div>
+        <section class="form-card">
+          <h2>Delivery details</h2>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="first_name">First name</label>
+              <input id="first_name" name="first_name" required value="{{ user.first_name }}">
+            </div>
+
+            <div class="field">
+              <label for="last_name">Last name</label>
+              <input id="last_name" name="last_name" required value="{{ user.last_name }}">
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required value="{{ user.email }}">
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" required>
+            </div>
+
+            <div class="field full">
+              <label for="address">Address</label>
+              <input id="address" name="address" required>
+            </div>
+
+            <div class="field">
+              <label for="city">City</label>
+              <input id="city" name="city" required>
+            </div>
+
+            <div class="field">
+              <label for="postal_code">Postal code</label>
+              <input id="postal_code" name="postal_code" required>
+            </div>
+
+            <div class="field full">
+              <label for="country">Country</label>
+              <input id="country" name="country" required>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-card" style="margin-top:18px">
+          <h2>Payment</h2>
+
+          <label class="payment-choice">
+            <input type="radio" name="payment_method" value="paypal" checked>
+            <span>
+              <b>PayPal</b><br>
+              <small>Secure payment with PayPal</small>
+            </span>
+          </label>
+
+          <label class="payment-choice">
+            <input type="radio" name="payment_method" value="mastercard">
+            <span>
+              <b>Mastercard</b><br>
+              <small>Pay by card</small>
+            </span>
+          </label>
+
+          <div id="card-fields" class="form-grid" style="display:none;margin-top:15px">
+            <div class="field full">
+              <label for="card_number">Card number</label>
+              <input id="card_number" name="card_number" inputmode="numeric" placeholder="1234 5678 9012 3456">
+            </div>
+
+            <div class="field">
+              <label for="expiry">Expiry</label>
+              <input id="expiry" name="expiry" placeholder="MM/YY">
+            </div>
+
+            <div class="field">
+              <label for="cvv">CVV</label>
+              <input id="cvv" name="cvv" inputmode="numeric" maxlength="3">
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="summary-card">
+        <h2 style="margin-top:0">Your order</h2>
+
+        {% for item in cart_items %}
+          <div class="summary-row">
+            <span>{{ item.product.name }} × {{ item.quantity }}</span>
+            <span>${{ item.subtotal|floatformat:2 }}</span>
+          </div>
+        {% endfor %}
+
+        <div class="summary-row" style="margin-top:12px;border-top:1px solid var(--line)">
+          <span>Delivery</span>
+          <span style="color:var(--lime)">Free</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Tax</span>
+          <span>${{ tax|floatformat:2 }}</span>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span>${{ total|floatformat:2 }}</span>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Place order <i class="fa-solid fa-lock"></i></button>
+      </aside>
+    </form>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    document.querySelectorAll('[name="payment_method"]').forEach(e=>e.addEventListener('change',()=>document.getElementById('card-fields').style.display=document.querySelector('[name="payment_method"]:checked').value==='mastercard'?'grid':'none'));
+  </script>
+{% endblock %}

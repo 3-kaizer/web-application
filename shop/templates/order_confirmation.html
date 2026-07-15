@@ -1,1 +1,17 @@
-{% extends 'base.html' %}{% block title %}Order confirmed — Audio Lux{% endblock %}{% block content %}<div class="page-wrap"><div class="empty" style="max-width:700px;margin:auto;border-style:solid"><i class="fa-solid fa-circle-check"></i><h1 class="page-title" style="font-size:48px">Order confirmed.</h1><p>Thank you, {{ order.first_name }}. Your order <b>#{{ order.id }}</b> is on its way to being prepared.</p><p class="item-meta">A confirmation has been sent to {{ order.email }}.</p><a class="btn btn-primary" href="{% url 'shop:index' %}">Keep exploring</a></div></div>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Order confirmed — Audio Lux{% endblock %}
+{% block content %}
+  <div class="page-wrap">
+    <div class="empty" style="max-width:700px;margin:auto;border-style:solid">
+      <i class="fa-solid fa-circle-check"></i>
+      
+      <h1 class="page-title" style="font-size:48px">Order confirmed.</h1>
+      
+      <p>Thank you, {{ order.first_name }}. Your order <b>#{{ order.id }}</b> is on its way to being prepared.</p>
+      
+      <p class="item-meta">A confirmation has been sent to {{ order.email }}.</p>
+      
+      <a class="btn btn-primary" href="{% url 'shop:index' %}">Keep exploring</a>
+    </div>
+  </div>
+{% endblock %}

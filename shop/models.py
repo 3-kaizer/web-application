@@ -119,3 +119,20 @@ class OrderItem(models.Model):
     @property
     def subtotal(self):
         return self.price * self.quantity
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer_profile')
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=250, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    country = models.CharField(max_length=50, blank=True)
+    date_registered = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-date_registered']
+
+    def __str__(self):
+        return self.user.username

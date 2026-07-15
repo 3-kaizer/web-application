@@ -1,1 +1,100 @@
-{% extends 'base.html' %}{% block title %}Your bag — Audio Lux{% endblock %}{% block content %}<div class="page-wrap"><h1 class="page-title">Your bag.</h1><p class="page-intro">A few steps from better listening.</p>{% if cart_items %}<div class="cart-grid"><div class="cart-list">{% for item in cart_items %}<article class="cart-item"><a class="cart-thumb" href="{% url 'shop:product_detail' item.product.slug %}">{% if item.product.image %}<img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">{% else %}<i class="fa-solid fa-headphones"></i>{% endif %}</a><div><a class="product-name" href="{% url 'shop:product_detail' item.product.slug %}">{{ item.product.name }}</a><p class="item-meta">{{ item.product.category.name }}</p><div class="quantity"><form method="post" action="{% url 'shop:update_cart' item.id %}">{% csrf_token %}<input name="action" type="hidden" value="decrease"><button class="btn btn-ghost" style="padding:8px 11px" aria-label="Decrease quantity">−</button></form><b>{{ item.quantity }}</b><form method="post" action="{% url 'shop:update_cart' item.id %}">{% csrf_token %}<input name="action" type="hidden" value="increase"><button class="btn btn-ghost" style="padding:8px 11px" aria-label="Increase quantity">+</button></form></div><form method="post" action="{% url 'shop:remove_from_cart' item.id %}">{% csrf_token %}<button class="link-muted" style="border:0;background:none;padding:0;cursor:pointer">Remove</button></form></div><div class="line-price">${{ item.subtotal|floatformat:2 }}<br><span class="item-meta">${{ item.product.price|floatformat:2 }} each</span></div></article>{% endfor %}</div><aside class="summary-card"><h2 style="margin-top:0">Order summary</h2><div class="summary-row"><span>Subtotal ({{ cart.total_items }})</span><span>${{ subtotal|floatformat:2 }}</span></div><div class="summary-row"><span>Delivery</span><span style="color:var(--lime)">Free</span></div><div class="summary-row"><span>Estimated tax</span><span>${{ tax|floatformat:2 }}</span></div><div class="summary-row summary-total"><span>Total</span><span>${{ total|floatformat:2 }}</span></div><a class="btn btn-primary" href="{% url 'shop:checkout' %}">Secure checkout <i class="fa-solid fa-lock"></i></a><p class="item-meta" style="text-align:center"><i class="fa-solid fa-shield-halved"></i> Secure checkout</p></aside></div>{% else %}<div class="empty"><i class="fa-solid fa-bag-shopping"></i><h2>Your bag is empty.</h2><p>Start with a headphone that makes you want to listen longer.</p><a class="btn btn-primary" href="{% url 'shop:index' %}">Browse headphones</a></div>{% endif %}</div>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Your bag — Audio Lux{% endblock %}
+{% block content %}
+  <div class="page-wrap">
+    <h1 class="page-title">Your bag.</h1>
+    <p class="page-intro">A few steps from better listening.</p>
+
+    {% if cart_items %}
+      <div class="cart-grid">
+        <div class="cart-list">
+          {% for item in cart_items %}
+            <article class="cart-item">
+              <a class="cart-thumb" href="{% url 'shop:product_detail' item.product.slug %}">
+                {% if item.product.image %}
+                  <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                {% else %}
+                  <i class="fa-solid fa-headphones"></i>
+                {% endif %}
+              </a>
+
+              <div>
+                <a class="product-name" href="{% url 'shop:product_detail' item.product.slug %}">
+                  {{ item.product.name }}
+                </a>
+                
+                <p class="item-meta">{{ item.product.category.name }}</p>
+                
+                <div class="quantity">
+                  <form method="post" action="{% url 'shop:update_cart' item.id %}">
+                    {% csrf_token %}
+                    <input name="action" type="hidden" value="decrease">
+                    <button class="btn btn-ghost" style="padding:8px 11px" aria-label="Decrease quantity">−</button>
+                  </form>
+                  
+                  <b>{{ item.quantity }}</b>
+                  
+                  <form method="post" action="{% url 'shop:update_cart' item.id %}">
+                    {% csrf_token %}
+                    <input name="action" type="hidden" value="increase">
+                    <button class="btn btn-ghost" style="padding:8px 11px" aria-label="Increase quantity">+</button>
+                  </form>
+                </div>
+
+                <form method="post" action="{% url 'shop:remove_from_cart' item.id %}">
+                  {% csrf_token %}
+                  <button class="link-muted" style="border:0;background:none;padding:0;cursor:pointer">Remove</button>
+                </form>
+              </div>
+
+              <div class="line-price">
+                ${{ item.subtotal|floatformat:2 }}<br>
+                <span class="item-meta">${{ item.product.price|floatformat:2 }} each</span>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        <aside class="summary-card">
+          <h2 style="margin-top:0">Order summary</h2>
+          
+          <div class="summary-row">
+            <span>Subtotal ({{ cart.total_items }})</span>
+            <span>${{ subtotal|floatformat:2 }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Delivery</span>
+            <span style="color:var(--lime)">Free</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Estimated tax</span>
+            <span>${{ tax|floatformat:2 }}</span>
+          </div>
+          
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span>${{ total|floatformat:2 }}</span>
+          </div>
+          
+          <a class="btn btn-primary" href="{% url 'shop:checkout' %}">
+            Secure checkout <i class="fa-solid fa-lock"></i>
+          </a>
+          
+          <p class="item-meta" style="text-align:center">
+            <i class="fa-solid fa-shield-halved"></i> Secure checkout
+          </p>
+        </aside>
+      </div>
+
+    {% else %}
+      <div class="empty">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <h2>Your bag is empty.</h2>
+        <p>Start with a headphone that makes you want to listen longer.</p>
+        <a class="btn btn-primary" href="{% url 'shop:index' %}">Browse headphones</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

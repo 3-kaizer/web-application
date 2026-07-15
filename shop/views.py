@@ -10,7 +10,8 @@ from django.conf import settings
 import json
 import uuid
 
-from .models import Category, Product, Cart, CartItem, Order, OrderItem
+from .models import Category, Product, Cart, CartItem, Order, OrderItem, Customer
+from .forms import CustomerRegistrationForm
 
 
 # =============================================
@@ -24,31 +25,28 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # Merge cart from session to user
-                session_id = request.session.session_key
-                if session_id:
-                    try:
-                        guest_cart = Cart.objects.get(session_id=session_id)
-                        user_cart, created = Cart.objects.get_or_create(user=user)
-                        for item in guest_cart.items.all():
-                            user_cart_item, created = CartItem.objects.get_or_create(
-                                cart=user_cart,
-                                product=item.product,
-                                defaults={'quantity': item.quantity}
-                            )
-                            if not created:
-                                user_cart_item.quantity += item.quantity
-                                user_cart_item.save()
-                        guest_cart.delete()
-                    except Cart.DoesNotExist:
-                        pass
-                messages.success(request, f'Welcome back, {username}!')
-                return redirect('shop:index')
+            user = form.get_user()
+            login(request, user)
+            # Merge cart from session to user
+            session_id = request.session.session_key
+            if session_id:
+                try:
+                    guest_cart = Cart.objects.get(session_id=session_id)
+                    user_cart, created = Cart.objects.get_or_create(user=user)
+                    for item in guest_cart.items.all():
+                        user_cart_item, created = CartItem.objects.get_or_create(
+                            cart=user_cart,
+                            product=item.product,
+                            defaults={'quantity': item.quantity}
+                        )
+                        if not created:
+                            user_cart_item.quantity += item.quantity
+                            user_cart_item.save()
+                    guest_cart.delete()
+                except Cart.DoesNotExist:
+                    pass
+            messages.success(request, f'Welcome back, {user.username}!')
+            return redirect('shop:index')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form})
@@ -59,14 +57,14 @@ def register_view(request):
         return redirect('shop:index')
     
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, f'Account created successfully! Welcome, {user.username}.')
             return redirect('shop:index')
     else:
-        form = UserCreationForm()
+        form = CustomerRegistrationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
 

@@ -12,6 +12,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'audio_lux.settings')
 django.setup()
 
 from django.contrib.auth import get_user_model
+from shop.models import Customer
 
 User = get_user_model()
 
@@ -32,6 +33,17 @@ def create_superuser():
     user.is_staff = True
     user.is_superuser = True
     user.save()
+
+    # Create Customer profile for superuser
+    Customer.objects.create(
+        user=user,
+        email=email,
+        phone='',
+        address='',
+        city='',
+        postal_code='',
+        country='',
+    )
 
     print('=' * 50)
     print('Superuser created successfully!')
