@@ -8,6 +8,13 @@
 
     <form method="post">
       {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+
+      {% if form.non_field_errors %}
+        <div class="form-errors" style="color:#ff9b9b;margin-bottom:1rem">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
 
       {% for field in form %}
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>

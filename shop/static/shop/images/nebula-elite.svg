@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 360" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="neb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1a35"/>
+      <stop offset="100%" stop-color="#84ffaa"/>
+    </linearGradient>
+  </defs>
+  <rect width="540" height="360" rx="30" fill="url(#neb)"/>
+  <path d="M180 240c0-48 36-88 80-88s80 40 80 88" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity="0.9"/>
+  <path d="M220 216h100c14 0 26 12 26 26v18h-152v-18c0-14 12-26 26-26z" fill="#06263d"/>
+  <circle cx="270" cy="116" r="30" fill="#e1fff0" opacity="0.25"/>
+  <path d="M180 116s34-60 90-60 90 60 90 60" fill="none" stroke="#fbffef" stroke-width="18" stroke-linecap="round"/>
+  <path d="M188 114c0-13 12-24 26-24h92c14 0 26 11 26 24" fill="none" stroke="#dcffca" stroke-width="12"/>
+  <text x="50%" y="330" fill="#edffda" font-family="Inter, Arial, sans-serif" font-size="24" text-anchor="middle">Nebula Elite</text>
+</svg>

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <section class="hero">
@@ -7,7 +8,7 @@
       <h1>Hear every <span>detail.</span></h1>
       <p class="lead">A considered edit of headphones for focus, movement, and those moments when music deserves your full attention.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#collection">Shop the collection <i class="fa-solid fa-arrow-down"></i></a>
+        <a class="btn btn-primary" href="{% url 'shop:index' %}#collection">Shop the collection <i class="fa-solid fa-arrow-down"></i></a>
         <a class="btn btn-ghost" href="#categories">Explore categories</a>
       </div>
       <div class="hero-stats">
@@ -49,9 +50,12 @@
 
     <div class="category-grid">
       {% for category in categories %}
-        <a class="category-card" href="{% url 'shop:category' category.slug %}">
-          <i class="fa-solid fa-{% cycle 'bolt' 'gamepad' 'wave-square' 'headphones' %}"></i>
-          <b>{{ category.name }}</b>
+        <a class="category-card {% if selected_category == category.slug %}active{% endif %}" href="{% url 'shop:index' %}?category={{ category.slug }}" data-category-link="true" data-category="{{ category.slug }}">
+          <div>
+            <span class="category-label">Curated fit</span>
+            <i class="fa-solid fa-{% cycle 'bolt' 'gamepad' 'wave-square' 'headphones' %}"></i>
+            <b>{{ category.name }}</b>
+          </div>
           <span>Explore collection <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       {% empty %}
@@ -84,35 +88,64 @@
       <div>
         <span class="eyebrow">The Audio Lux edit</span>
         <h2 class="section-title" style="margin-top:14px">Featured headphones.</h2>
+        <p class="section-sub">Browse our premium headphone collection, carefully curated for performance and style.</p>
       </div>
       <a class="btn btn-ghost" href="{% url 'shop:index' %}">View all <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 
     <div class="filters">
-      <a class="filter {% if not request.GET.category %}active{% endif %}" href="{% url 'shop:index' %}#collection">All products</a>
+      <a class="filter {% if not selected_category %}active{% endif %}" href="{% url 'shop:index' %}" data-filter-link="true" data-category="">All products</a>
       {% for category in categories %}
-        <a class="filter" href="{% url 'shop:category' category.slug %}">{{ category.name }}</a>
+        <a class="filter {% if selected_category == category.slug %}active{% endif %}" href="{% url 'shop:index' %}?category={{ category.slug }}" data-filter-link="true" data-category="{{ category.slug }}">{{ category.name }}</a>
       {% endfor %}
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="product-grid">
       {% for product in products %}
         <article class="product-card">
           <a class="product-image" href="{% url 'shop:product_detail' product.slug %}">
             {% if product.image %}
               <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% elif product.slug == 'aurora-pro-x1' %}
+              <img src="{% static 'shop/images/aurora-pro-x1.svg' %}" alt="Aurora Pro X1 artwork">
+            {% elif product.slug == 'nebula-elite' %}
+              <img src="{% static 'shop/images/nebula-elite.svg' %}" alt="Nebula Elite artwork">
+            {% elif product.slug == 'cipher-mk-ii' %}
+              <img src="{% static 'shop/images/cipher-mk-ii.svg' %}" alt="Cipher MK-II artwork">
+            {% elif product.slug == 'serenity-vintage' %}
+              <img src="{% static 'shop/images/serenity-vintage.svg' %}" alt="Serenity Vintage artwork">
+            {% elif product.slug == 'pulse-rhythm' %}
+              <img src="{% static 'shop/images/pulse-rhythm.svg' %}" alt="Pulse Rhythm artwork">
+            {% elif product.slug == 'echo-studio' %}
+              <img src="{% static 'shop/images/echo-studio.svg' %}" alt="Echo Studio artwork">
+            {% elif product.slug == 'bass-pro-zero' %}
+              <img src="{% static 'shop/images/bass-pro-zero.svg' %}" alt="Bass Pro Zero artwork">
+            {% elif product.slug == 'zen-air-lite' %}
+              <img src="{% static 'shop/images/zen-air-lite.svg' %}" alt="Zen Air Lite artwork">
             {% else %}
-              <i class="fa-solid fa-headphones"></i>
+              <img src="{% static 'shop/images/aurora-pro-x1.svg' %}" alt="Product artwork">
             {% endif %}
           </a>
 
           <div class="product-info">
             <span class="product-category">{{ product.category.name }}</span>
             <a class="product-name" href="{% url 'shop:product_detail' product.slug %}">{{ product.name }}</a>
-            <p class="product-desc">{{ product.description|truncatewords:16 }}</p>
+            <div class="product-rating">
+              <span class="stars">★ {{ product.rating|default:4.5|floatformat:1 }}</span>
+              <span class="rating-count">{{ product.review_count|default:0|floatformat:0 }}+</span>
+            </div>
+            <p class="product-desc">{{ product.description|truncatewords:8 }}</p>
+            <div class="product-highlights">
+              {% for detail in product.easy_details %}
+                <span class="highlight-pill">{{ detail }}</span>
+              {% endfor %}
+            </div>
 
             <div class="product-bottom">
-              <span class="price">${{ product.price|floatformat:2 }}</span>
+              <div class="price-block">
+                <span class="price-label">From</span>
+                <span class="price">${{ product.price|floatformat:2 }}</span>
+              </div>
               <form method="post" action="{% url 'shop:add_to_cart' product.id %}">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.path }}">
@@ -126,11 +159,59 @@
       {% empty %}
         <div class="empty" style="grid-column:1/-1">
           <i class="fa-solid fa-box-open"></i>
-          <p>No products found yet. Add products from the admin area to populate your storefront.</p>
+          <p>{% if search_query %}No products matched “{{ search_query }}”. Try another search term or choose a category.{% else %}No products found yet. Add products from the admin area to populate your storefront.{% endif %}</p>
         </div>
       {% endfor %}
     </div>
   </section>
+
+  <script>
+    (function () {
+      const productGrid = document.getElementById('product-grid');
+      if (!productGrid) return;
+
+      const updateActiveState = (selectedCategory) => {
+        document.querySelectorAll('[data-category-link], [data-filter-link]').forEach((link) => {
+          const isActive = (link.getAttribute('data-category') || '') === (selectedCategory || '');
+          link.classList.toggle('active', isActive);
+        });
+      };
+
+      const loadProducts = async (selectedCategory) => {
+        const url = new URL(window.location.href);
+        if (selectedCategory) {
+          url.searchParams.set('category', selectedCategory);
+        } else {
+          url.searchParams.delete('category');
+        }
+
+        const response = await fetch(`${url.pathname}${url.search}`, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newGrid = doc.getElementById('product-grid');
+
+        if (newGrid) {
+          productGrid.innerHTML = newGrid.innerHTML;
+        }
+
+        updateActiveState(selectedCategory);
+        window.history.replaceState({}, '', url.toString());
+      };
+
+      document.querySelectorAll('[data-category-link], [data-filter-link]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const selectedCategory = link.getAttribute('data-category') || '';
+          loadProducts(selectedCategory);
+        });
+      });
+
+      updateActiveState(new URLSearchParams(window.location.search).get('category') || '');
+    })();
+  </script>
 
   <section class="feature-band" id="why-us">
     <div class="feature">

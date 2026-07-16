@@ -26,6 +26,8 @@ class Product(models.Model):
     description = models.TextField()
     specifications = models.TextField(help_text='JSON or plain text specifications')
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=4.5)
+    review_count = models.PositiveIntegerField(default=0)
     stock = models.PositiveIntegerField(default=0)
     is_available = models.BooleanField(default=True)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
@@ -39,6 +41,44 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    @property
+    def easy_details(self):
+        details = []
+        for raw_line in self.specifications.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if ':' in line:
+                key, value = line.split(':', 1)
+                key = key.strip().lower()
+                value = value.strip()
+                if key == 'battery life':
+                    if value.lower().startswith('up to'):
+                        details.append(f"{value} playtime")
+                    else:
+                        details.append(f"Up to {value} playtime")
+                elif key == 'quick charge':
+                    details.append(value)
+                elif key == 'noise cancellation':
+                    details.append(value)
+                elif key == 'connectivity':
+                    details.append(value)
+                elif key == 'codec support':
+                    details.append(value)
+                elif key == 'driver size':
+                    details.append(f"{value} drivers")
+                elif key == 'driver configuration':
+                    details.append(value)
+                elif key == 'weight':
+                    details.append(f"Lightweight {value}")
+                else:
+                    details.append(value)
+            else:
+                details.append(line)
+            if len(details) >= 3:
+                break
+        return details or ['Premium sound', 'Comfort-first fit']
 
     def __str__(self):
         return self.name

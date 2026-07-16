@@ -5,13 +5,23 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.db.models import Q
 from django.conf import settings
+from decimal import Decimal
 import json
 import uuid
 
 from .models import Category, Product, Cart, CartItem, Order, OrderItem, Customer
 from .forms import CustomerRegistrationForm
+
+
+def calculate_totals(subtotal):
+    shipping = Decimal('0.00')
+    tax_rate = Decimal('0.08')
+    tax = subtotal * tax_rate
+    total = subtotal + shipping + tax
+    return subtotal, shipping, tax, total
 
 
 # =============================================
@@ -21,7 +31,9 @@ from .forms import CustomerRegistrationForm
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('shop:index')
-    
+
+    next_url = request.POST.get('next') or request.GET.get('next') or ''
+
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -46,10 +58,12 @@ def login_view(request):
                 except Cart.DoesNotExist:
                     pass
             messages.success(request, f'Welcome back, {user.username}!')
+            if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+                return redirect(next_url)
             return redirect('shop:index')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form, 'next': next_url})
 
 
 def register_view(request):
@@ -99,6 +113,8 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['search_query'] = self.request.GET.get('search', '').strip()
+        context['selected_category'] = self.request.GET.get('category', '')
         return context
 
 
@@ -142,9 +158,7 @@ class CartView(View):
         
         cart_items = cart.items.select_related('product').all()
         subtotal = cart.total_price
-        shipping = 0
-        tax = subtotal * 0.08
-        total = subtotal + shipping + tax
+        subtotal, shipping, tax, total = calculate_totals(subtotal)
         
         context = {
             'cart': cart,
@@ -250,7 +264,6 @@ class UpdateCartView(View):
 # Checkout & Payment Views
 # =============================================
 
-@method_decorator(login_required, name='dispatch')
 class CheckoutView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -265,9 +278,7 @@ class CheckoutView(View):
 
         cart_items = cart.items.select_related('product').all()
         subtotal = cart.total_price
-        shipping = 0
-        tax = subtotal * 0.08
-        total = subtotal + shipping + tax
+        subtotal, shipping, tax, total = calculate_totals(subtotal)
         
         context = {
             'cart': cart,
@@ -311,7 +322,7 @@ class CheckoutView(View):
 
         # Calculate total
         subtotal = cart.total_price
-        total_amount = subtotal + (subtotal * 0.08)
+        subtotal, _, _, total_amount = calculate_totals(subtotal)
 
         # Simulate payment processing
         payment_status = 'completed'

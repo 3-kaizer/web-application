@@ -358,21 +358,50 @@ h1 {
   min-height: 175px;
   padding: 22px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 20px;
   background: linear-gradient(135deg, #181f2c, #11151d);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -30px -35px auto;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(173, 255, 107, 0.22), transparent 70%);
+  pointer-events: none;
 }
 
 .category-card i {
   display: block;
   font-size: 37px;
   color: var(--lime);
-  margin-bottom: 42px;
+  margin-bottom: 22px;
 }
 
 .category-card b {
   font-size: 17px;
+}
+
+.category-card .category-label {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #dbe7ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
 .category-card span {
@@ -382,9 +411,11 @@ h1 {
   margin-top: 3px;
 }
 
-.category-card:hover {
+.category-card:hover,
+.category-card.active {
   border-color: var(--lime);
   transform: translateY(-4px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.26);
 }
 
 .filters {
@@ -392,6 +423,36 @@ h1 {
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 28px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  min-width: 220px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 12px 18px;
+  outline: none;
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 4px rgba(173, 255, 107, 0.12);
+}
+
+.search-summary {
+  color: var(--muted);
+  margin: -8px 0 24px;
+  font-size: 14px;
 }
 
 .filter {
@@ -467,11 +528,48 @@ h1 {
   margin: 8px 0;
 }
 
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 7px 0 8px;
+  font-size: 12px;
+}
+
+.stars {
+  color: var(--lime);
+  font-weight: 800;
+}
+
+.rating-count {
+  color: var(--muted);
+}
+
 .product-desc {
   font-size: 13px;
   color: var(--muted);
-  height: 39px;
+  min-height: 39px;
   overflow: hidden;
+}
+
+.product-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+
+.highlight-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f3f6ff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .product-bottom {
@@ -480,6 +578,19 @@ h1 {
   justify-content: space-between;
   gap: 10px;
   margin-top: 18px;
+}
+
+.price-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.price-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #7f8fa8;
 }
 
 .price {
