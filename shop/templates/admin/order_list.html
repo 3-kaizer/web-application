@@ -1,0 +1,106 @@
+{% extends 'admin/base.html' %}
+
+{% block page_title %}Orders{% endblock %}
+
+{% block admin_content %}
+<div class="page-header">
+    <h2>Orders</h2>
+    <div class="header-actions">
+        <span class="total-count">Total: {{ orders.count }}</span>
+        <a href="{% url 'shop:admin_export_orders_csv' %}" class="btn btn-secondary">📥 Export CSV</a>
+    </div>
+</div>
+
+<div class="filters">
+    <form method="get" class="filter-form">
+        <select name="payment_status">
+            <option value="">All Statuses</option>
+            {% for value, label in payment_status_choices %}
+            <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-secondary">Filter</button>
+        {% if selected_status %}
+        <a href="{% url 'shop:admin_orders' %}" class="btn btn-secondary">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Email</th>
+                <th>Payment</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td><strong>#{{ order.id }}</strong></td>
+                <td>
+                    {% if order.user %}
+                    {{ order.user.username }}
+                    {% else %}
+                    {{ order.first_name }} {{ order.last_name }}
+                    {% endif %}
+                </td>
+                <td>{{ order.email }}</td>
+                <td>
+                    {% if order.payment_method == 'paypal' %}
+                    <span class="badge badge-info">PayPal</span>
+                    {% else %}
+                    <span class="badge badge-primary">MasterCard</span>
+                    {% endif %}
+                </td>
+                <td>{{ order.items.count }} items</td>
+                <td><strong>${{ order.total_amount }}</strong></td>
+                <td>
+                    {% if order.payment_status == 'completed' %}
+                    <span class="badge badge-success">Completed</span>
+                    {% elif order.payment_status == 'pending' %}
+                    <span class="badge badge-warning">Pending</span>
+                    {% else %}
+                    <span class="badge badge-danger">Failed</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="{% url 'shop:admin_order_detail' order.pk %}" class="btn btn-sm btn-primary">View</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No orders found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+    <span class="page-info">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+    <div class="page-buttons">
+        {% if page_obj.has_previous %}
+        <a href="?page=1{% if selected_status %}&payment_status={{ selected_status }}{% endif %}" class="btn btn-sm btn-secondary">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if selected_status %}&payment_status={{ selected_status }}{% endif %}" class="btn btn-sm btn-secondary">Previous</a>
+        {% endif %}
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if selected_status %}&payment_status={{ selected_status }}{% endif %}" class="btn btn-sm btn-secondary">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if selected_status %}&payment_status={{ selected_status }}{% endif %}" class="btn btn-sm btn-secondary">Last</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

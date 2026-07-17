@@ -1,0 +1,154 @@
+{% extends 'admin/base.html' %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block admin_content %}
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <div class="stat-icon">🎧</div>
+        <div class="stat-info">
+            <h3>{{ total_products }}</h3>
+            <p>Total Products</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-info">
+            <h3>{{ total_orders }}</h3>
+            <p>Total Orders</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+                    <h3>${{ total_revenue|floatformat:2 }}</h3>
+            <p>Total Revenue</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+            <h3>{{ total_customers }}</h3>
+            <p>Total Customers</p>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <!-- Low Stock Alert -->
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h2>⚠️ Low Stock Alert</h2>
+        </div>
+        <div class="card-body">
+            {% if low_stock_products %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in low_stock_products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category.name }}</td>
+                        <td><span class="badge badge-danger">{{ product.stock }}</span></td>
+                        <td>
+                            <a href="{% url 'shop:admin_product_edit' product.pk %}" class="btn btn-sm btn-primary">Restock</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-muted">All products are well-stocked!</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Category Stats -->
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h2>Top Categories</h2>
+        </div>
+        <div class="card-body">
+            {% if category_stats %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in category_stats %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td><span class="badge badge-primary">{{ category.product_count }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-muted">No categories yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="dashboard-card full-width">
+        <div class="card-header">
+            <h2>Recent Orders</h2>
+            <a href="{% url 'shop:admin_orders' %}" class="btn btn-primary">View All</a>
+        </div>
+        <div class="card-body">
+            {% if recent_orders %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in recent_orders %}
+                    <tr>
+                        <td><strong>#{{ order.id }}</strong></td>
+                        <td>{{ order.user.username if order.user else order.first_name }}</td>
+                        <td><strong>${{ order.total_amount }}</strong></td>
+                        <td>
+                            {% if order.payment_status == 'completed' %}
+                            <span class="badge badge-success">Completed</span>
+                            {% elif order.payment_status == 'pending' %}
+                            <span class="badge badge-warning">Pending</span>
+                            {% else %}
+                            <span class="badge badge-danger">Failed</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ order.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <div class="actions">
+                                <a href="{% url 'shop:admin_order_detail' order.pk %}" class="btn btn-sm btn-primary">View</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No orders yet.</td>
+            </tr>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'admin/base.html' %}
+
+{% block page_title %}Categories{% endblock %}
+
+{% block admin_content %}
+<div class="page-header">
+    <h2>Categories</h2>
+    <a href="{% url 'shop:admin_category_add' %}" class="btn btn-primary">+ Add Category</a>
+</div>
+
+<div class="table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Products</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td><strong>{{ category.name }}</strong></td>
+                <td><code>{{ category.slug }}</code></td>
+                <td>
+                    <a href="{% url 'shop:category' category.slug %}" class="badge badge-primary">
+                        {{ category.product_count }} products
+                    </a>
+                </td>
+                <td class="actions">
+                    <a href="{% url 'shop:admin_category_edit' category.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{% url 'shop:admin_category_delete' category.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No categories found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

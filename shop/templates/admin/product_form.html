@@ -1,0 +1,108 @@
+{% extends 'admin/base.html' %}
+
+{% block page_title %}{% if object %}Edit Product{% else %}Add Product{% endif %}{% endblock %}
+
+{% block admin_content %}
+<div class="form-container">
+    <div class="form-header">
+        <h2>{% if object %}Edit Product{% else %}Add New Product{% endif %}</h2>
+        <a href="{% url 'shop:admin_products' %}" class="btn btn-secondary">← Back to Products</a>
+    </div>
+
+    <form method="post" class="admin-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h3>Basic Information</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Product Name *</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <span class="error">{{ form.name.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category *</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                    <span class="error">{{ form.category.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description *</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                <span class="error">{{ form.description.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.specifications.id_for_label }}">Specifications</label>
+                {{ form.specifications }}
+                <small class="form-help">Enter specifications in format: Key: Value (one per line). Example:
+                    <br>Battery Life: 30 hours
+                    <br>Noise Cancellation: Active
+                    <br>Connectivity: Bluetooth 5.0
+                </small>
+                {% if form.specifications.errors %}
+                <span class="error">{{ form.specifications.errors.0 }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Pricing & Stock</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}">Price ($) *</label>
+                    {{ form.price }}
+                    {% if form.price.errors %}
+                    <span class="error">{{ form.price.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.stock.id_for_label }}">Stock Quantity *</label>
+                    {{ form.stock }}
+                    {% if form.stock.errors %}
+                    <span class="error">{{ form.stock.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.is_available.id_for_label }}">Status</label>
+                    <div class="checkbox-wrapper">
+                        {{ form.is_available }}
+                        <label for="{{ form.is_available.id_for_label }}">Available for Sale</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Product Image</h3>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Product Image</label>
+                {{ form.image }}
+                {% if object and object.image %}
+                <div class="current-image">
+                    <p>Current Image:</p>
+                    <img src="{{ object.image.url }}" alt="{{ object.name }}" width="150">
+                </div>
+                {% endif %}
+                {% if form.image.errors %}
+                <span class="error">{{ form.image.errors.0 }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if object %}Update Product{% else %}Create Product{% endif %}
+            </button>
+            <a href="{% url 'shop:admin_products' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

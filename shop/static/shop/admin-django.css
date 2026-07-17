@@ -1,0 +1,820 @@
+/* =============================================
+   Django Admin Custom Theme - Audio Lux
+   Override Django's default admin styling
+   ============================================= */
+
+/* Global Styles */
+body {
+    background: #0b0e14 !important;
+    color: #f5f7fb !important;
+}
+
+#header {
+    background: #121722 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#header a:link, #header a:visited {
+    color: #f5f7fb !important;
+}
+
+#header a:hover {
+    color: #c8ff3d !important;
+}
+
+#branding h1 {
+    color: #f5f7fb !important;
+    font-weight: 800 !important;
+}
+
+#branding h1 a {
+    color: #f5f7fb !important;
+}
+
+#branding h1 a:hover {
+    color: #c8ff3d !important;
+}
+
+/* Sidebar */
+#nav-sidebar {
+    background: #121722 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#nav-sidebar .module {
+    background: transparent !important;
+}
+
+#nav-sidebar h2 {
+    color: #a9b0be !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    font-weight: 700 !important;
+}
+
+#nav-sidebar a:link, #nav-sidebar a:visited {
+    color: #a9b0be !important;
+}
+
+#nav-sidebar a:hover {
+    color: #c8ff3d !important;
+    background: rgba(200, 255, 61, 0.08) !important;
+}
+
+#nav-sidebar .current-model {
+    background: rgba(200, 255, 61, 0.15) !important;
+}
+
+#nav-sidebar .current-model a:link, #nav-sidebar .current-model a:visited {
+    color: #c8ff3d !important;
+}
+
+/* Main Content */
+#content {
+    background: #0b0e14 !important;
+}
+
+.breadcrumbs {
+    background: #121722 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #a9b0be !important;
+}
+
+.breadcrumbs a {
+    color: #a9b0be !important;
+}
+
+.breadcrumbs a:hover {
+    color: #c8ff3d !important;
+}
+
+/* Dashboard */
+.dashboard .module {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+.dashboard .module table th {
+    color: #a9b0be !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+.dashboard .module table td {
+    color: #f5f7fb !important;
+}
+
+.dashboard .module table tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.dashboard .module caption, .dashboard .module h2 {
+    color: #f5f7fb !important;
+    font-weight: 700 !important;
+}
+
+.dashboard .module a:link, .dashboard .module a:visited {
+    color: #c8ff3d !important;
+}
+
+.dashboard .module a:hover {
+    color: #dcff73 !important;
+}
+
+.dashboard .module table a:link, .dashboard .module table a:visited {
+    color: #f5f7fb !important;
+}
+
+.dashboard .module table a:hover {
+    color: #c8ff3d !important;
+}
+
+/* Change List */
+.change-list {
+    background: transparent !important;
+}
+
+.change-list .filtered table {
+    background: transparent !important;
+}
+
+.change-list .filtered th,
+.change-list .filtered td {
+    background: transparent !important;
+}
+
+.result-list {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+.change-list table {
+    border-collapse: collapse !important;
+}
+
+.change-list thead th {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #a9b0be !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 14px 18px !important;
+}
+
+.change-list tbody td {
+    padding: 14px 18px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: #f5f7fb !important;
+}
+
+.change-list tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.change-list tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Paginator */
+.paginator {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: #a9b0be !important;
+}
+
+.paginator a:link, .paginator a:visited {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #f5f7fb !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 8px 14px !important;
+}
+
+.paginator a:hover {
+    background: rgba(200, 255, 61, 0.15) !important;
+    color: #c8ff3d !important;
+    border-color: #c8ff3d !important;
+}
+
+.paginator .this-page {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    padding: 8px 14px !important;
+    font-weight: 700 !important;
+}
+
+/* Buttons */
+.button, input[type="submit"], input[type="button"], .submit-row input {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 10px 18px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background: #dcff73 !important;
+    transform: translateY(-1px) !important;
+}
+
+.button.default, input[type="submit"].default {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+}
+
+/* Action Links */
+.object-tools {
+    padding: 0 !important;
+}
+
+.object-tools a:link, .object-tools a:visited {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #f5f7fb !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 8px 16px !important;
+    border-radius: 999px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+.object-tools a:hover {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border-color: #c8ff3d !important;
+}
+
+.object-tools a:link.addlink, .object-tools a:visited.addlink {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border-color: #c8ff3d !important;
+}
+
+.object-tools a:hover.addlink {
+    background: #dcff73 !important;
+}
+
+/* Forms */
+.form-row {
+    padding: 18px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.form-row:hover {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.form-row label {
+    color: #a9b0be !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+.form-row input, .form-row textarea, .form-row select {
+    background: #0b0e14 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #f5f7fb !important;
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+}
+
+.form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+    border-color: #c8ff3d !important;
+    box-shadow: 0 0 0 3px rgba(200, 255, 61, 0.12) !important;
+}
+
+.form-row .readonly {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: #a9b0be !important;
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+}
+
+/* Checkbox and Radio */
+input[type="checkbox"], input[type="radio"] {
+    accent-color: #c8ff3d !important;
+}
+
+/* Help Text */
+.help, .help-tooltip {
+    color: #a9b0be !important;
+    font-size: 12px !important;
+}
+
+.help-tooltip-icon {
+    color: #a9b0be !important;
+}
+
+/* Errors */
+.errorlist {
+    color: #ff6b6b !important;
+    background: rgba(255, 107, 107, 0.1) !important;
+    border: 1px solid rgba(255, 107, 107, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    margin: 10px 0 !important;
+    font-size: 13px !important;
+}
+
+.errorlist li {
+    color: #ff6b6b !important;
+    font-weight: 600 !important;
+}
+
+input[type="text"].error, input[type="email"].error, input[type="password"].error,
+textarea.error, select.error {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15) !important;
+}
+
+/* Messages */
+.messagelist {
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+}
+
+.messagelist li {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    padding: 14px 18px !important;
+    margin-bottom: 10px !important;
+    color: #f5f7fb !important;
+    font-size: 14px !important;
+}
+
+.messagelist li.success {
+    background: #1a3320 !important;
+    border-color: #2d5a35 !important;
+    color: #9be7ac !important;
+}
+
+.messagelist li.error {
+    background: #3d1f1f !important;
+    border-color: #6b2727 !important;
+    color: #ff9e9e !important;
+}
+
+.messagelist li.warning {
+    background: #3d321f !important;
+    border-color: #6b5227 !important;
+    color: #ffd89e !important;
+}
+
+.messagelist li.info {
+    background: #1f3340 !important;
+    border-color: #276b6b !important;
+    color: #9ed6ff !important;
+}
+
+/* Inline Forms */
+.inline-group {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+}
+
+.inline-related {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+}
+
+.inline-related h3 {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: #f5f7fb !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 12px 18px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+}
+
+.inline-related h3 span.delete {
+    background: rgba(255, 107, 107, 0.15) !important;
+    color: #ff6b6b !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+}
+
+.inline-related h3 span.delete:hover {
+    background: rgba(255, 107, 107, 0.25) !important;
+}
+
+/* Tabs */
+.nav-tabs {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.nav-tabs a:link, .nav-tabs a:visited {
+    color: #a9b0be !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.nav-tabs a:hover {
+    color: #f5f7fb !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.1) transparent !important;
+}
+
+.nav-tabs .active a:link, .nav-tabs .active a:visited {
+    color: #c8ff3d !important;
+    background: #121722 !important;
+    border-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.1) transparent !important;
+}
+
+/* Delete Confirmation */
+.delete-confirmation {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 32px !important;
+}
+
+.delete-confirmation p {
+    color: #a9b0be !important;
+}
+
+.delete-confirmation ul {
+    color: #f5f7fb !important;
+}
+
+.delete-confirmation li {
+    padding: 8px 0 !important;
+}
+
+/* Login Page */
+body.login {
+    background: #0b0e14 !important;
+}
+
+.login .container {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+.login h1 {
+    color: #f5f7fb !important;
+    font-weight: 800 !important;
+}
+
+.login h1 a {
+    color: #f5f7fb !important;
+}
+
+.login h1 a:hover {
+    color: #c8ff3d !important;
+}
+
+.login form {
+    background: transparent !important;
+}
+
+.login form input[type="text"], .login form input[type="password"] {
+    background: #0b0e14 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #f5f7fb !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+}
+
+.login form input[type="submit"] {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border: none !important;
+    padding: 12px 20px !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+.login form input[type="submit"]:hover {
+    background: #dcff73 !important;
+}
+
+/* Submit Row */
+.submit-row {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 20px 0 !important;
+}
+
+.submit-row input {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 10px 20px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+.submit-row input:hover {
+    background: #dcff73 !important;
+}
+
+.submit-row a.deletelink {
+    background: rgba(255, 107, 107, 0.15) !important;
+    color: #ff6b6b !important;
+    border: 1px solid rgba(255, 107, 107, 0.3) !important;
+    border-radius: 999px !important;
+    padding: 10px 20px !important;
+    font-weight: 700 !important;
+}
+
+.submit-row a.deletelink:hover {
+    background: rgba(255, 107, 107, 0.25) !important;
+    color: #ff8787 !important;
+}
+
+/* Calendar and Clock */
+.calendarbox, .clockbox {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+.calendarbox h2, .clockbox h2 {
+    color: #f5f7fb !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.calendar table td, .calendar table th {
+    color: #f5f7fb !important;
+}
+
+.calendar table .today {
+    color: #c8ff3d !important;
+    font-weight: 700 !important;
+}
+
+.calendar a:link, .calendar a:visited {
+    color: #c8ff3d !important;
+}
+
+/* Related Widget */
+#result_list {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+/* Search */
+#changelist-search {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 999px !important;
+    padding: 10px 18px !important;
+}
+
+#changelist-search input[type="text"] {
+    background: transparent !important;
+    color: #f5f7fb !important;
+    border: none !important;
+    outline: none !important;
+}
+
+#changelist-search input[type="submit"] {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+/* Date Hierarchy */
+#changelist .date-hierarchy {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+}
+
+#changelist .date-hierarchy a:link, #changelist .date-hierarchy a:visited {
+    color: #c8ff3d !important;
+}
+
+#changelist .date-hierarchy a:hover {
+    color: #dcff73 !important;
+}
+
+/* Filters */
+#changelist-filter {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+}
+
+#changelist-filter h2 {
+    color: #f5f7fb !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 12px !important;
+}
+
+#changelist-filter a:link, #changelist-filter a:visited {
+    color: #a9b0be !important;
+}
+
+#changelist-filter a:hover {
+    color: #c8ff3d !important;
+}
+
+#changelist-filter .selected {
+    background: rgba(200, 255, 61, 0.15) !important;
+    color: #c8ff3d !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+}
+
+/* Actions */
+.actions {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 16px 20px !important;
+}
+
+.actions select {
+    background: #0b0e14 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #f5f7fb !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+}
+
+.actions button {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+/* Submit Row */
+input[type="submit"].default, .button.default {
+    background: #c8ff3d !important;
+    color: #12170a !important;
+}
+
+input[type="submit"]:hover, .button:hover {
+    background: #dcff73 !important;
+}
+
+/* Thumbnails */
+.thumbnail {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+/* Empty states */
+.empty-form {
+    color: #a9b0be !important;
+}
+
+/* User links */
+#user-tools a:link, #user-tools a:visited {
+    color: #c8ff3d !important;
+}
+
+#user-tools a:hover {
+    color: #dcff73 !important;
+}
+
+/* Popup windows */
+.popup window {
+    background: #0b0e14 !important;
+}
+
+/* Custom Admin - Dashboard Override */
+.dashboard .module table tr th {
+    background: transparent !important;
+}
+
+.dashboard .module table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dashboard .module table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Version indicator */
+.version {
+    color: #a9b0be !important;
+    font-size: 11px !important;
+}
+
+/* Links */
+a:link, a:visited {
+    color: #c8ff3d !important;
+}
+
+a:hover {
+    color: #dcff73 !important;
+}
+
+/* hr */
+hr {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    height: 1px !important;
+}
+
+/* Tables in general */
+table {
+    border-collapse: collapse !important;
+}
+
+thead {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Order admin customizations */
+.field-box {
+    background: #121722 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.field-box h2 {
+    color: #c8ff3d !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin: 0 0 16px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.field-box h3 {
+    color: #f5f7fb !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin: 16px 0 8px !important;
+}
+
+.inline-related .field-box {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.inline-related .field-box h2 {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Order item table */
+#order_items-group .tabular tr td.original {
+    background: #121722 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+#order_items-group .tabular tr td {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Inline empty form */
+.add-row td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.add-row a {
+    color: #c8ff3d !important;
+}
+
+.add-row a:hover {
+    color: #dcff73 !important;
+}
