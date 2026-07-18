@@ -8,10 +8,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from shop.admin import audio_lux_admin
 
 urlpatterns = [
-    path('admin/', audio_lux_admin.urls),
+    path('admin/', admin.site.urls),
     path('', include('shop.urls')),
 ]
 

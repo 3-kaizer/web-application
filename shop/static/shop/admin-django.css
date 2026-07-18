@@ -35,6 +35,25 @@ body {
     color: #c8ff3d !important;
 }
 
+.audiolux-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #f5f7fb !important;
+    text-decoration: none;
+}
+
+.audiolux-brand strong {
+    color: #c8ff3d;
+    font-weight: 800;
+}
+
+.audiolux-logo {
+    width: 30px;
+    height: 30px;
+    fill: #c8ff3d;
+}
+
 /* Sidebar */
 #nav-sidebar {
     background: #121722 !important;
@@ -689,6 +708,53 @@ input[type="submit"]:hover, .button:hover {
 .thumbnail {
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px !important;
+}
+
+.audiolux-thumbnail {
+    display: block;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+}
+
+.audiolux-thumbnail-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    color: #a9b0be;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-size: 10px;
+    text-align: center;
+}
+
+.audiolux-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.audiolux-badge.is-in, .audiolux-badge.is-available, .audiolux-badge.is-complete {
+    color: #9be7ac;
+    background: rgba(74, 154, 92, 0.24);
+}
+
+.audiolux-badge.is-low, .audiolux-badge.is-pending {
+    color: #ffd89e;
+    background: rgba(185, 126, 32, 0.24);
+}
+
+.audiolux-badge.is-out, .audiolux-badge.is-hidden, .audiolux-badge.is-failed {
+    color: #ff9e9e;
+    background: rgba(181, 67, 67, 0.24);
 }
 
 /* Empty states */

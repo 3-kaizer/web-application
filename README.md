@@ -4,11 +4,12 @@ A polished Django storefront for premium headphones.
 
 ## Run locally
 
-1. Create and activate a virtual environment.
-2. Install the project requirements: `pip install django pillow`.
-3. Run `python manage.py migrate`.
-4. Optionally load the sample catalogue: `python manage.py populate_products`.
-5. Start the app: `python manage.py runserver`.
+1. Use Python 3.12 (Django 4.2 supports Python 3.8 through 3.12).
+2. Create and activate a virtual environment, for example on Windows: `py -3.12 -m venv .venv` then `.\\.venv\\Scripts\\Activate.ps1`.
+3. Install the project requirements: `pip install -r requirements.txt`.
+4. Run `python manage.py migrate`.
+5. Optionally load the sample catalogue: `python manage.py populate_products`.
+6. Start the app: `python manage.py runserver`.
 
 The storefront is available at `http://127.0.0.1:8000/`.
 

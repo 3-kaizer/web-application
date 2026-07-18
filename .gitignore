@@ -4,6 +4,7 @@ __pycache__/
 db.sqlite3
 *.log
 .venv/
+.venv312/
 venv/
 env/
 .pytest_cache/
