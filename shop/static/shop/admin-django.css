@@ -884,3 +884,236 @@ tbody tr:hover {
 .add-row a:hover {
     color: #dcff73 !important;
 }
+
+/* Dashboard Customizations */
+.audiolux-dashboard {
+  padding-bottom: 40px !important;
+}
+
+.audiolux-welcome-banner {
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.audiolux-welcome-content h1 {
+  color: #f5f7fb !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  margin: 0 0 6px !important;
+  letter-spacing: -0.01em;
+}
+
+.audiolux-welcome-content p {
+  color: #a9b0be !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+
+.audiolux-welcome-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.audiolux-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.audiolux-btn-outline {
+  background: transparent !important;
+  color: #c8ff3d !important;
+  border: 1px solid rgba(200, 255, 61, 0.35) !important;
+}
+
+.audiolux-btn-outline:hover {
+  background: rgba(200, 255, 61, 0.1) !important;
+  border-color: #c8ff3d !important;
+}
+
+/* Stats Grid */
+.audiolux-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.audiolux-stat-card {
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+}
+
+.audiolux-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(200, 255, 61, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.audiolux-stat-icon {
+  font-size: 28px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.audiolux-stat-orders .audiolux-stat-icon { background: rgba(200, 255, 61, 0.1); }
+.audiolux-stat-products .audiolux-stat-icon { background: rgba(100, 180, 255, 0.1); }
+.audiolux-stat-customers .audiolux-stat-icon { background: rgba(180, 130, 255, 0.1); }
+.audiolux-stat-categories .audiolux-stat-icon { background: rgba(255, 180, 100, 0.1); }
+
+.audiolux-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.audiolux-stat-value {
+  color: #f5f7fb !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+}
+
+.audiolux-stat-value a {
+  color: #f5f7fb !important;
+  text-decoration: none !important;
+}
+
+.audiolux-stat-value a:hover {
+  color: #c8ff3d !important;
+}
+
+.audiolux-stat-label {
+  color: #a9b0be !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* Main Grid */
+.audiolux-main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
+}
+
+/* Panel */
+.audiolux-panel {
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.audiolux-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.audiolux-panel-header h2 {
+  color: #f5f7fb !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  letter-spacing: -0.005em;
+}
+
+.audiolux-panel-link {
+  color: #c8ff3d !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.audiolux-panel-link:hover {
+  background: rgba(200, 255, 61, 0.1);
+  color: #dcff73 !important;
+}
+
+.audiolux-panel-content {
+  padding: 10px 12px 16px;
+}
+
+/* Recent Orders Table */
+.audiolux-recent-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+.audiolux-recent-table th {
+  padding: 10px 14px !important;
+  color: #a9b0be !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  background: transparent !important;
+}
+
+.audiolux-recent-table td {
+  padding: 11px 14px !important;
+  color: #f5f7fb !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+}
+
+.audiolux-recent-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.audiolux-recent-table td:first-child a {
+  color: #c8ff3d !important;
+  font-weight: 700 !important;
+}
+
+.audiolux-recent-table td:first-child a:hover {
+  color: #dcff73 !important;
+}
+
+/* Empty state */
+.audiolux-empty {
+  color: #a9b0be !important;
+  text-align: center !important;
+  padding: 28px 18px !important;
+  font-size: 13px !important;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1200px) {
+  .audiolux-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .audiolux-main-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,113 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'shop/admin-django.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="audiolux-dashboard">
+  <!-- Welcome Banner -->
+  <div class="audiolux-welcome-banner">
+    <div class="audiolux-welcome-content">
+      <h1>Welcome to AudioLux Administration</h1>
+      <p>Manage your audio store with ease</p>
+    </div>
+    <div class="audiolux-welcome-actions">
+      <a href="{% url 'shop:index' %}" class="audiolux-btn audiolux-btn-outline" target="_blank">
+        View Store
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="audiolux-stats-grid">
+    <div class="audiolux-stat-card audiolux-stat-orders">
+      <div class="audiolux-stat-icon">📦</div>
+      <div class="audiolux-stat-content">
+        <div class="audiolux-stat-value">
+          <a href="{% url 'admin:shop_order_changelist' %}">{{ orders_count }}</a>
+        </div>
+        <div class="audiolux-stat-label">Total Orders</div>
+      </div>
+    </div>
+
+    <div class="audiolux-stat-card audiolux-stat-products">
+      <div class="audiolux-stat-icon">🎧</div>
+      <div class="audiolux-stat-content">
+        <div class="audiolux-stat-value">
+          <a href="{% url 'admin:shop_product_changelist' %}">{{ products_count }}</a>
+        </div>
+        <div class="audiolux-stat-label">Products</div>
+      </div>
+    </div>
+
+    <div class="audiolux-stat-card audiolux-stat-customers">
+      <div class="audiolux-stat-icon">👥</div>
+      <div class="audiolux-stat-content">
+        <div class="audiolux-stat-value">
+          <a href="{% url 'admin:shop_customer_changelist' %}">{{ customers_count }}</a>
+        </div>
+        <div class="audiolux-stat-label">Customers</div>
+      </div>
+    </div>
+
+    <div class="audiolux-stat-card audiolux-stat-categories">
+      <div class="audiolux-stat-icon">📁</div>
+      <div class="audiolux-stat-content">
+        <div class="audiolux-stat-value">
+          <a href="{% url 'admin:shop_category_changelist' %}">{{ categories_count }}</a>
+        </div>
+        <div class="audiolux-stat-label">Categories</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="audiolux-panel audiolux-panel-orders">
+    <div class="audiolux-panel-header">
+      <h2>Recent Orders</h2>
+      <a href="{% url 'admin:shop_order_changelist' %}" class="audiolux-panel-link">View all</a>
+    </div>
+    <div class="audiolux-panel-content">
+      <table class="audiolux-recent-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in recent_orders %}
+          <tr>
+            <td>
+              <a href="{% url 'admin:shop_order_change' order.pk %}">
+                #{{ order.id }}
+              </a>
+            </td>
+            <td>{{ order.first_name }} {{ order.last_name }}</td>
+            <td>{{ order.email }}</td>
+            <td>KSh {{ order.total_amount }}</td>
+            <td>
+              <span class="audiolux-badge status-{{ order.payment_status }}">
+                {{ order.get_payment_status_display }}
+              </span>
+            </td>
+            <td>{{ order.created_at|date:"M d, Y" }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="audiolux-empty">No orders yet</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
