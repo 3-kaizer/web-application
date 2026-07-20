@@ -2,32 +2,19 @@ from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from django.conf import settings
 from shop.models import Product
-import requests
 from PIL import Image
 from io import BytesIO
 import os
 
 
 class Command(BaseCommand):
-    help = 'Download and assign product images based on category'
-
-    # Image search queries mapped to product categories
-    CATEGORY_IMAGE_QUERIES = {
-        'Over-Ear': 'premium over-ear headphones luxury',
-        'On-Ear': 'vintage on-ear headphones retro style',
-        'In-Ear': 'premium in-ear monitors iem',
-        'Wireless': 'wireless headphones premium modern',
-    }
+    help = 'Generate and assign product placeholder images based on category'
 
     def get_image_for_category(self, category_name):
         """Generate a placeholder image using PIL"""
-        search_query = self.CATEGORY_IMAGE_QUERIES.get(category_name, 'headphones premium')
-        
         try:
-            # Create a high-quality placeholder image
             img = Image.new('RGB', (800, 800), color='#121722')
             
-            # Create a drawing context
             from PIL import ImageDraw, ImageFont
             draw = ImageDraw.Draw(img)
             
@@ -46,14 +33,6 @@ class Command(BaseCommand):
             draw.arc([300, 280, 500, 420], start=0, end=180, fill='#c8ff3d', width=12)
             draw.rectangle([290, 380, 330, 440], fill='#c8ff3d')
             draw.rectangle([470, 380, 510, 440], fill='#c8ff3d')
-            
-            # Add product name text
-            try:
-                font_large = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
-                font_small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
-            except:
-                font_large = ImageFont.load_default()
-                font_small = ImageFont.load_default()
             
             # Save to BytesIO
             output = BytesIO()

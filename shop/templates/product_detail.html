@@ -11,16 +11,8 @@
       <div class="detail-media">
         {% if product.image %}
           <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        {% elif product.slug == 'aurora-pro-x1' %}
-          <img src="{% static 'shop/images/aurora-pro-x1.svg' %}" alt="Aurora Pro X1 artwork">
-        {% elif product.slug == 'nebula-elite' %}
-          <img src="{% static 'shop/images/nebula-elite.svg' %}" alt="Nebula Elite artwork">
-        {% elif product.slug == 'cipher-mk-ii' %}
-          <img src="{% static 'shop/images/cipher-mk-ii.svg' %}" alt="Cipher MK-II artwork">
-        {% elif product.slug == 'serenity-vintage' %}
-          <img src="{% static 'shop/images/serenity-vintage.svg' %}" alt="Serenity Vintage artwork">
         {% else %}
-          <img src="{% static 'shop/images/aurora-pro-x1.svg' %}" alt="Product artwork">
+          <i class="fa-solid fa-headphones" style="font-size:96px;color:var(--lime)"></i>
         {% endif %}
       </div>
 
